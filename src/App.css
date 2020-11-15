@@ -8,45 +8,11 @@
   "n c";
 
   grid-template-rows: 60px 1fr ;
-  grid-template-columns: 2fr 10fr;
+  grid-template-columns: 1.3fr 10fr;
   /* grid-gap: 10px; */
 }
 
-.header {
-grid-area: h;
-background-color: #333aaa;
-}
-
-.header img {
-  width: 65px;
-}
-
-.nav {
-display: grid;
-justify-content: center;
-align-content: flex-start;
-grid-area: n;
-background-color: #aaa333;
-font-family: Georgia, 'Times New Roman', Times, serif;
-}
-.chapt-group {
-  margin-top: 26px;
-}
-.linkback {
-  display: grid;
-  justify-content: center;
-  align-content: center;
-  margin-top: 10px;
-  background-color: aliceblue;
-  width: 100px;
-  height: 30px;
-  border-radius: 25px;
-}
-a { 
-    text-decoration: none;
-}
-
-.content {
-grid-area: c;
-background-color: #598bc4;
+.app-wrapper-content {
+  grid-area: c;
+  background-color: #598bc4;
 }

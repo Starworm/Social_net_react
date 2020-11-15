@@ -1,0 +1,33 @@
+.nav {
+    display: grid;
+    justify-content: center;
+    align-content: flex-start;
+    grid-area: n;
+    background-color: #aaa333;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.chapt-group {
+    margin-top: 26px;
+    margin-bottom: 26px;
+}
+
+.linkback {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    margin-top: 10px;
+    background-color: aliceblue;
+    width: 100px;
+    height: 30px;
+    border-radius: 25px;
+}
+
+a { 
+    text-decoration: none;
+    color: blue;
+}
+
+a.activeLink {
+    color: crimson;
+}
