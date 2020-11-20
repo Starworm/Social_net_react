@@ -1,8 +1,14 @@
 import { NavLink } from 'react-router-dom';
+import Friend from './Friend';
 import s from './Navbar.module.css';
 
-const Navbar = () => {
-    console.log(s);
+const Navbar = (props) => {
+    console.log(props.friends.friends);
+
+    let friendElement = props.friends.friends.map((el) => {
+        return <Friend name={el.name} avatar={el.avatar} />
+    })
+
     return (
         <nav className={s.nav}>
             <div className={s['chapt-group']}>
@@ -21,6 +27,10 @@ const Navbar = () => {
                 <div className={s.linkback}>
                     <NavLink to="/settings" activeClassName={s.activeLink}>Settings</NavLink>
                 </div>
+            </div>
+            <div>
+                <div>Friends</div>
+                <div className={s.friendsContainer}>{friendElement}</div>
             </div>
         </nav>
     );

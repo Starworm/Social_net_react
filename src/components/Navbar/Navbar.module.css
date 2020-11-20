@@ -12,6 +12,12 @@
     margin-bottom: 26px;
 }
 
+.friendsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
 .linkback {
     display: grid;
     justify-content: center;

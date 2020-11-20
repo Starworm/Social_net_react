@@ -12,18 +12,19 @@ import Settings from './components/Settings/Settings';
 let smth = () => <Dialogs />
 
 const App = (props) => {
+  // console.log(props);
   const text = 'IT-kamasutra.com ';
 
   return (
     <BrowserRouter>
       <div className="app-wrapper">
         <Header />
-        <Navbar />
+        <Navbar friends={props.state.sidebarPage} />
         <div className='app-wrapper-content'>
-          {/* <Route path='/dialogs' component={Dialogs} /> */}
-          {/* <Route path='/profile' component={Profile} /> */}
-          <Route path='/dialogs' component={() => <Dialogs />} />
-          <Route path='/profile' render={() => <Profile />} />
+          <Route path='/dialogs'
+            render={() => <Dialogs state={props.state.dialogsPage} />} />
+          <Route path='/profile'
+            render={() => <Profile state={props.state.profilePage} />} />
           <Route path='/news' component={News} />
           <Route path='/music' component={Music} />
           <Route path='/settings' component={Settings} />
