@@ -2,7 +2,6 @@ import s from './Friend.module.css';
 
 const Friend = (props) => {
 
-    console.log(props.friends);
 
     return (
         <div className={s.container}>

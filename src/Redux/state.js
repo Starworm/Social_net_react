@@ -1,3 +1,5 @@
+let rerenderEntireTree
+
 let state = {
     profilePage: {
         posts: [
@@ -5,6 +7,7 @@ let state = {
             { id: 2, post: 'Bla-bla-bla', likesCount: 10 },
             { id: 3, post: 'Post 3', likesCount: 100 },
         ],
+        newPostText: 'Default text'
     },
     dialogsPage: {
         messages: [
@@ -12,6 +15,7 @@ let state = {
             { id: 2, message: '123' },
             { id: 3, message: 'bla-bla' },
         ],
+        newMessage: 'Hi there!',
         dialogs: [
             { id: 1, name: 'Vaas' },
             { id: 2, name: 'Jason' },
@@ -34,5 +38,44 @@ let state = {
         ]
     }
 };
+
+window.state = state;
+
+export const addPost = () => {
+    let newPost = {
+        id: 5,
+        post: state.profilePage.newPostText,
+        likesCount: 0,
+    };
+
+    state.profilePage.posts.push(newPost);
+    state.profilePage.newPostText = '';
+    rerenderEntireTree(state);
+}
+
+export const updateNewPostText = (newText) => {
+    state.profilePage.newPostText = newText;
+    rerenderEntireTree(state);
+}
+
+export const addMessage = () => {
+    let newMsg = {
+        id: 4,
+        message: state.dialogsPage.newMessage
+    };
+
+    state.dialogsPage.messages.push(newMsg);
+    state.dialogsPage.newMessage = '';
+    rerenderEntireTree(state);
+}
+
+export const updateNewMessage = (newM) => {
+    state.dialogsPage.newMessage = newM;
+    rerenderEntireTree(state);
+}
+
+export const subscribe = (observer) => {
+    rerenderEntireTree = observer;   // наблюдатель (паттерн "Observer")
+}
 
 export default state;
