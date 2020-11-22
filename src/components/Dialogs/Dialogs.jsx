@@ -2,6 +2,7 @@ import DialogItem from './DialogItem/Dialog';
 import s from './Dialogs.module.css';
 import Message from './Message/Message';
 import React from 'react';
+import { addMessageActionCreator, updateNewMessageActionCreator } from '../../Redux/dialogs-reducer';
 
 const Dialogs = (props) => {
 
@@ -13,15 +14,15 @@ const Dialogs = (props) => {
         return <Message message={el.message} />
     })
 
-    let newMessageElement = React.createRef();
-
-    const newMessage = () => {
-        props.addMessage();
+    const onSendMessageClick = () => {
+        // const action = { type: 'ADD-MESSAGE' };
+        props.dispatch(addMessageActionCreator());
     }
 
-    let onMessageChange = () => {
-        let mess = newMessageElement.current.value;
-        props.updateNewMessage(mess);
+    let onMessageChange = (event) => {
+        let mess = event.target.value
+        const action = updateNewMessageActionCreator(mess);
+        props.dispatch(action);
     }
 
     return (
@@ -30,16 +31,18 @@ const Dialogs = (props) => {
                 {dialogsElements}
             </div>
             <div className={s.messages}>
-                {messagesElements}
+                <div>{messagesElements}</div>
                 <div>
-                    <textarea
-                        ref={newMessageElement}
-                        value={props.dialogsPage.newMessage}
-                        cols="30" rows="5"
-                        onChange={onMessageChange}></textarea>
-                </div>
-                <div>
-                    <button onClick={newMessage}>Add message</button>
+                    <div>
+                        <textarea
+                            placeholder='Enter your message'
+                            value={props.dialogsPage.newMessage}
+                            cols="30" rows="5"
+                            onChange={onMessageChange}></textarea>
+                    </div>
+                    <div>
+                        <button onClick={onSendMessageClick}>Add message</button>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,10 +1,10 @@
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
 import React from 'react';
+import { addPostActionCreator, updateNewPostTextActionCreator } from '../../../Redux/profile-reducer';
 
 const MyPosts = (props) => {
 
-    console.log(props);
     let postsElements = props.posts.map((el) => {
         return <Post message={el.post} likes={el.likesCount} />
     });
@@ -16,13 +16,14 @@ const MyPosts = (props) => {
     let newPostElement = React.createRef();
 
     let addPost = () => {
-        props.addPost();
+        props.dispatch(addPostActionCreator());
     }
 
     let onPostChange = () => {
         // .current ссылается на нативный HTML-элемент
         let text = newPostElement.current.value;
-        props.updateNewPostText(text);
+        const action = updateNewPostTextActionCreator(text);
+        props.dispatch(action);
     }
 
     return (
