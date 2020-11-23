@@ -12,7 +12,6 @@ import Settings from './components/Settings/Settings';
 let smth = () => <Dialogs />
 
 const App = (props) => {
-  // console.log(props);
   const text = 'IT-kamasutra.com ';
 
   return (

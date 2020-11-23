@@ -4,7 +4,7 @@ import React from 'react';
 import { addPostActionCreator, updateNewPostTextActionCreator } from '../../../Redux/profile-reducer';
 
 const MyPosts = (props) => {
-
+    console.log(props);
     let postsElements = props.posts.map((el) => {
         return <Post message={el.post} likes={el.likesCount} />
     });
