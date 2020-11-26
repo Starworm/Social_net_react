@@ -46,38 +46,38 @@ let store = {
         console.log('plug text');
     },
 
-    // _addPost() {
-    //     let newPost = {
-    //         id: 5,
-    //         post: this._state.profilePage.newPostText,
-    //         likesCount: 0,
-    //     };
+    _addPost() {
+        let newPost = {
+            id: 5,
+            post: this._state.profilePage.newPostText,
+            likesCount: 0,
+        };
 
-    //     this._state.profilePage.posts.push(newPost);
-    //     this._state.profilePage.newPostText = '';
-    //     this._callSubscriber(this._state);
-    // },
+        this._state.profilePage.posts.push(newPost);
+        this._state.profilePage.newPostText = '';
+        this._callSubscriber(this._state);
+    },
 
-    // _updateNewPostText(newText) {
-    //     this._state.profilePage.newPostText = newText;
-    //     this._callSubscriber(this._state);
-    // },
+    _updateNewPostText(newText) {
+        this._state.profilePage.newPostText = newText;
+        this._callSubscriber(this._state);
+    },
 
-    // _addMessage() {
-    //     let newMsg = {
-    //         id: 4,
-    //         message: this._state.dialogsPage.newMessage
-    //     };
+    _addMessage() {
+        let newMsg = {
+            id: 4,
+            message: this._state.dialogsPage.newMessage
+        };
 
-    //     this._state.dialogsPage.messages.push(newMsg);
-    //     this._state.dialogsPage.newMessage = '';
-    //     this._callSubscriber(this._state);
-    // },
+        this._state.dialogsPage.messages.push(newMsg);
+        this._state.dialogsPage.newMessage = '';
+        this._callSubscriber(this._state);
+    },
 
-    // _updateNewMessage(newM) {
-    //     this._state.dialogsPage.newMessage = newM;
-    //     this._callSubscriber(this._state);
-    // },
+    _updateNewMessage(newM) {
+        this._state.dialogsPage.newMessage = newM;
+        this._callSubscriber(this._state);
+    },
 
     getState() {
         return this._state;

@@ -5,24 +5,25 @@ import React from 'react';
 import { addMessageActionCreator, updateNewMessageActionCreator } from '../../Redux/dialogs-reducer';
 
 const Dialogs = (props) => {
+    console.log(props);
 
-    let dialogsElements = props.dialogsPage.dialogs.map((el) => {
+    let state = props.dialogsPage;
+
+    let dialogsElements = state.dialogs.map((el) => {
         return <DialogItem name={el.name} id={el.id} />
     });
 
-    let messagesElements = props.dialogsPage.messages.map((el) => {
+    let messagesElements = state.messages.map((el) => {
         return <Message message={el.message} />
     })
 
     const onSendMessageClick = () => {
-        // const action = { type: 'ADD-MESSAGE' };
-        props.dispatch(addMessageActionCreator());
+        props.sendMessage();
     }
 
     let onMessageChange = (event) => {
         let mess = event.target.value
-        const action = updateNewMessageActionCreator(mess);
-        props.dispatch(action);
+        props.updateNewMessageBody(mess);
     }
 
     return (
@@ -36,7 +37,7 @@ const Dialogs = (props) => {
                     <div>
                         <textarea
                             placeholder='Enter your message'
-                            value={props.dialogsPage.newMessage}
+                            value={state.newMessage}
                             cols="30" rows="5"
                             onChange={onMessageChange}></textarea>
                     </div>

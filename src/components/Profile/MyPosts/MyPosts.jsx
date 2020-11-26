@@ -15,15 +15,14 @@ const MyPosts = (props) => {
     // или document.querySelector()
     let newPostElement = React.createRef();
 
-    let addPost = () => {
-        props.dispatch(addPostActionCreator());
+    let onAddPost = () => {
+        props.addPost();
     }
 
     let onPostChange = () => {
         // .current ссылается на нативный HTML-элемент
         let text = newPostElement.current.value;
-        const action = updateNewPostTextActionCreator(text);
-        props.dispatch(action);
+        props.updateNewPostText(text);
     }
 
     return (
@@ -40,7 +39,7 @@ const MyPosts = (props) => {
                     </textarea>
                 </div>
                 <div>
-                    <button onClick={addPost}>Add post</button>
+                    <button onClick={onAddPost}>Add post</button>
                 </div>
             </div>
             <div className={s.posts}>
