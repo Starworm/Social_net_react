@@ -4,9 +4,10 @@ import s from './Navbar.module.css';
 
 const Navbar = (props) => {
 
-    let friendElement = props.friends.friends.map((el) => {
-        return <Friend name={el.name} avatar={el.avatar} />
-    })
+    /** Потом исправить */
+    // let friendElement = props.friends.friends.map((el) => {
+    //     return <Friend name={el.name} avatar={el.avatar} />
+    // })
 
     return (
         <nav className={s.nav}>
@@ -30,7 +31,7 @@ const Navbar = (props) => {
             <div>
                 <div className={s.nav__titleBlock}>
                     <span className={s.nav__title}>Friends</span></div>
-                <div className={s.nav__friendsContainer}>{friendElement}</div>
+                {/* <div className={s.nav__friendsContainer}>{friendElement}</div> // Потом исправить */}
             </div>
         </nav>
     );

@@ -13,18 +13,19 @@ import DialogsContainer from './components/Dialogs/DialogsContainer';
 let smth = () => <Dialogs />
 
 const App = (props) => {
+  console.log(props);
   const text = 'IT-kamasutra.com ';
 
   return (
     <div className="app-wrapper">
       <Header />
-      <Navbar friends={props.state.sidebarPage} />
+      {/* <Navbar friends={props.state.sidebarPage} /> // Потом исправить */}
+      <Navbar />
       <div className='app-wrapper-content'>
         <Route path='/dialogs'
-          render={() => <DialogsContainer store={props.store}
-          />} />
+          render={() => <DialogsContainer />} />
         <Route path='/profile'
-          render={() => <Profile store={props.store} />} />
+          render={() => <Profile />} />
         <Route path='/news' component={News} />
         <Route path='/music' component={Music} />
         <Route path='/settings' component={Settings} />
