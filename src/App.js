@@ -13,7 +13,6 @@ import DialogsContainer from './components/Dialogs/DialogsContainer';
 let smth = () => <Dialogs />
 
 const App = (props) => {
-  console.log(props);
   const text = 'IT-kamasutra.com ';
 
   return (
