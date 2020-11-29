@@ -12,16 +12,13 @@ import MyPosts from './MyPosts';
 //             {
 //                 (store) => {
 //                     let state = store.getState();
-
 //                     let addPost = () => {
 //                         store.dispatch(addPostActionCreator());
 //                     }
-
 //                     let onPostChange = (text) => {
 //                         const action = updateNewPostTextActionCreator(text);
 //                         store.dispatch(action)
 //                     }
-
 //                     return (
 //                         <MyPosts updateNewPostText={onPostChange}
 //                             addPost={addPost}
