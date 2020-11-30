@@ -14,16 +14,13 @@ import { connect } from 'react-redux';
 //             {
 //                 (store) => {
 //                     let state = store.getState().dialogsPage;
-
 //                     const onSendMessageClick = () => {
 //                         store.dispatch(addMessageActionCreator());
 //                     }
-
 //                     let onMessageChange = (mess) => {
 //                         const action = updateNewMessageActionCreator(mess);
 //                         store.dispatch(action);
 //                     }
-
 //                     return (
 //                         <Dialogs updateNewMessageBody={onMessageChange}
 //                             sendMessage={onSendMessageClick}
