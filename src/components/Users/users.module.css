@@ -1,0 +1,58 @@
+.userPhoto {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.userField {
+    display: flex;
+    padding-top: 20px;
+}
+
+.userAvatar {
+
+}
+
+.userInfo {
+    display: flex;
+    height: 100px;
+    justify-content: space-between;
+    border: 1px solid coral;
+    border-radius: 15px;
+    margin-left: 15px;
+    width: 60%;
+}
+
+.leftInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-left: 13px;
+}
+
+.rightInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-end;
+    padding-right: 13px;
+}
+
+.text {
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.userName {
+
+}
+.userStatus {
+font-size: 14px;
+    font-weight: 500;
+}
+.userCity {
+
+}
+.userCountry {
+
+}

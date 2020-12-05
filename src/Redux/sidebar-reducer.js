@@ -12,6 +12,7 @@ let initialState = {
     ]
 }
 
+// редьюсер, выполняющий определенные действия в зависимости от полученного типа экшена
 const sidebarReducer = (state = initialState, action) => {
 
     return state;

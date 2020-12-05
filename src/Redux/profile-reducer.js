@@ -10,6 +10,7 @@ let initialState = {
     newPostText: 'Default text'
 }
 
+// редьюсер, выполняющий определенные действия в зависимости от полученного типа экшена
 const profileReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_POST: {

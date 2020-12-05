@@ -32,7 +32,7 @@ import { connect } from 'react-redux';
 //     );
 // }
 
-// объекты f1 и f2 - передаются в презентационную компоненту как пропсы
+// объекты mapStateToProps и mapDispatchToProps - передаются в презентационную компоненту как пропсы
 // mapStateToProps - данные из state
 // mapDispatchToProps - колбэки, которые будут отправляться в презентационную компоненту
 

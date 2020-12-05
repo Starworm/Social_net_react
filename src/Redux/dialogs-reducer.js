@@ -17,6 +17,7 @@ let initialState = {
     ]
 }
 
+// редьюсер, выполняющий определенные действия в зависимости от полученного типа экшена
 const dialogsReducer = (state = initialState, action) => {
 
     switch (action.type) {
