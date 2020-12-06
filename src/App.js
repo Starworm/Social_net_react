@@ -16,24 +16,24 @@ let smth = () => <Dialogs/>
 const App = (props) => {
     const text = 'IT-kamasutra.com ';
 
-  return (
-    <div className="app-wrapper">
-      <Header />
-      {/* <Navbar friends={props.state.sidebarPage} /> // Потом исправить */}
-      <Navbar />
-      <div className='app-wrapper-content'>
-        <Route path='/dialogs'
-          render={() => <DialogsContainer />} />
-        <Route path='/profile'
-          render={() => <Profile />} />
-          <Route path='/users'
-          render={() => <UsersContainer />} />
-        <Route path='/news' component={News} />
-        <Route path='/music' component={Music} />
-        <Route path='/settings' component={Settings} />
-      </div>
-    </div>
-  );
+    return (
+        <div className="app-wrapper">
+            <Header/>
+            {/* <Navbar friends={props.state.sidebarPage} /> // Потом исправить */}
+            <Navbar/>
+            <div className='app-wrapper-content'>
+                <Route path='/dialogs'
+                       render={() => <DialogsContainer/>}/>
+                <Route path='/profile'
+                       render={() => <Profile/>}/>
+                <Route path='/users'
+                       render={() => <UsersContainer/>}/>
+                <Route path='/news' component={News}/>
+                <Route path='/music' component={Music}/>
+                <Route path='/settings' component={Settings}/>
+            </div>
+        </div>
+    );
 }
 
 export default App;

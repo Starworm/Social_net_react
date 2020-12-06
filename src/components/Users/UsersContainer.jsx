@@ -1,7 +1,8 @@
 import React from 'react';
 import {followAC, setUsersAC, unfollowAC} from "../../Redux/users-reducer";
-import Users from "./Users";
+import Users_old from "./Users_old";
 import { connect } from 'react-redux';
+import Users from "./Users";
 
 // объекты mapStateToProps и mapDispatchToProps - передаются в презентационную компоненту как пропсы
 // mapStateToProps - данные из state, которые будут отправляться в презентационную компоненту
