@@ -1,5 +1,5 @@
 import React from 'react';
-import {followAC, setUsersAC, unfollowAC} from "../../Redux/users-reducer";
+import {followAC, setCurrentPageAC, setTotalUsersCountAC, setUsersAC, unfollowAC} from "../../Redux/users-reducer";
 import Users_old from "./Users_old";
 import { connect } from 'react-redux';
 import Users from "./Users";
@@ -8,14 +8,17 @@ import Users from "./Users";
 // mapStateToProps - данные из state, которые будут отправляться в презентационную компоненту
 // mapDispatchToProps - колбэки, которые будут отправляться в презентационную компоненту
 
-// mapStateToProps - данные из state, которые будут отправляться в презентационную компоненту
+// mapStateToProps - данные из state (файл user-reducer), которые будут отправляться в презентационную компоненту
 let mapStateToProps = (state) => {
     return {
-        users: state.usersPage.users
+        users: state.usersPage.users,
+        pageSize: state.usersPage.pageSize,
+        totalUsersCount: state.usersPage.totalUsersCount,
+        currentPage: state.usersPage.currentPage
     }
 }
 
-// mapDispatchToProps - колбэки, которые будут отправляться в презентационную компоненту
+// mapDispatchToProps - колбэки, которые будут отправляться в презентационную компоненту для вызова уже там
 let mapDispatchToProps = (dispatch) => {
     return {
         toFollow: (userId) => {
@@ -29,10 +32,17 @@ let mapDispatchToProps = (dispatch) => {
         setUsers: (users) => {
             const action = setUsersAC(users);
             dispatch(action);
+        },
+        setCurrentPage: (page) => {
+            const action = setCurrentPageAC(page);
+            dispatch(action);
+        },
+        setTotalUsersCount: (totalCount) => {
+            const action = setTotalUsersCountAC(totalCount);
+            dispatch(action)
         }
+
     }
 }
 
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users);
-
-export default UsersContainer;
+export default connect(mapStateToProps, mapDispatchToProps)(Users);

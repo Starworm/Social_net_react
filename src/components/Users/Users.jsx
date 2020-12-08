@@ -7,17 +7,39 @@ class Users extends React.Component {
 
     componentDidMount() {
         if (this.props.users.length === 0) {
-            axios.get('https://social-network.samuraijs.com/api/1.0/users')
+            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
                 .then(responce => {
-                    console.log(responce.data.items);
                     this.props.setUsers(responce.data.items);
-                })
+                    this.props.setTotalUsersCount(responce.data.totalCount);
+                });
         }
     }
 
+    onPageChanged = (p) => {
+        this.props.setCurrentPage(p);
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`)
+            .then(responce => {
+                this.props.setUsers(responce.data.items);
+            });
+    }
+
     render() {
+        /** количество страниц с записями */
+        let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize);
+        let pages = [];
+        for (let i = 1; i <= pagesCount; i++) {
+            pages.push(i);
+        }
         return (
             <div>
+                <div>
+                    {pages.map(el => {
+                        return (
+                            <span className={styles.cursorPointer + ' ' + (this.props.currentPage === el && styles.selectedPage)}
+                                  onClick={(e) => this.onPageChanged(el)}>{el}</span>
+                        )
+                    })}
+                </div>
                 {this.props.users.map(u => {
                     return (
                         <div key={u.id} className={styles.userField}>
