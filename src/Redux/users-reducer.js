@@ -3,6 +3,7 @@ const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const SET_TOTAL_COUNT = 'SET_TOTAL_COUNT';
+const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 
 // исходный стейт
 let initialState = {
@@ -11,8 +12,10 @@ let initialState = {
     pageSize: 10,
     /** общее количество записей */
     totalUsersCount: 0,
+    /** получаем ли данные с бэка */
+    isFetching: true,
     /** текущая страница */
-    currentPage: 1
+    currentPage: 1,
 }
 
 // редьюсер, выполняющий определенные действия в зависимости от полученного типа экшена
@@ -54,16 +57,22 @@ const userReducer = (state = initialState, action) => {
                 ...state,
                 totalUsersCount: action.totalCount
             }
+        case TOGGLE_IS_FETCHING:
+            return {
+                ...state,
+                isFetching: action.isFetching
+            }
         default:
             return state;
     }
 }
 
 // action creator для выполнения действий, возвращает action
-export const followAC = (userId) => ({type: FOLLOW, userId});     // добавление в подписки
-export const unfollowAC = (userId) => ({type: UNFOLLOW, userId}); // удаление из подписок
-export const setUsersAC = (users) => ({type: SET_USERS, users}); // добавление в друзья
-export const setCurrentPageAC = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage}); // изменение странициы
-export const setTotalUsersCountAC = (totalUsersCount) => ({type: SET_TOTAL_COUNT, totalCount: totalUsersCount}); // установка общего количества пользователей
+export const toFollow = (userId) => ({type: FOLLOW, userId});     // добавление в подписки
+export const unfollow = (userId) => ({type: UNFOLLOW, userId}); // удаление из подписок
+export const setUsers = (users) => ({type: SET_USERS, users}); // добавление в друзья
+export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage}); // изменение странициы
+export const setTotalUsersCount = (totalUsersCount) => ({type: SET_TOTAL_COUNT, totalCount: totalUsersCount}); // установка общего количества пользователей
+export const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching}); // установка общего количества пользователей
 
 export default userReducer;
