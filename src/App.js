@@ -24,7 +24,7 @@ const App = (props) => {
             <div className='app-wrapper-content'>
                 <Route path='/dialogs'
                        render={() => <DialogsContainer/>}/>
-                <Route path='/profile'
+                <Route path='/profile/:userId?'            // указываем параметр, который может быть в URL - userId, ? - необязательный параметр
                        render={() => <ProfileContainer/>}/>
                 <Route path='/users'
                        render={() => <UsersContainer/>}/>
