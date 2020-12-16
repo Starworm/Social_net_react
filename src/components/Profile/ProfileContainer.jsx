@@ -5,7 +5,7 @@ import React from "react";
 import * as axios from "axios";
 import {setUserProfile} from "../../Redux/profile-reducer";
 import {connect} from "react-redux";
-import withRouter from "react-router-dom/es/withRouter";
+import {withRouter} from "react-router-dom";
 
 // класс получения данных других пользователей
 class ProfileContainer extends React.Component {
