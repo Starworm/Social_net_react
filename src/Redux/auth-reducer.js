@@ -30,6 +30,5 @@ const authReducer = (state = initialState, action) => {
 
 // action creator для выполнения действий, возвращает action
 export const setAuthUserData = (userId, email, login) => ({type: SET_USER_DATA, data: {userId,  email, login}});     // установка авторизационных данных пользователя
-export const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching}); // установка общего количества пользователей
 
 export default authReducer;
