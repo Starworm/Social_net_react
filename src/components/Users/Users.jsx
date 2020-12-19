@@ -2,11 +2,13 @@ import styles from "./users.module.css";
 import React from "react";
 import {NavLink} from "react-router-dom";
 import * as axios from "axios";
+import {followUser, unfollowUser} from "../../api/api";
 
 let Users = (props) => {
     /** количество страниц с записями */
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
     let pages = [];
+    const TOKEN = "4f5b3e29-825e-41fc-8dde-59e254917a07";
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
     }
@@ -37,13 +39,7 @@ let Users = (props) => {
                             <div>
                                 {u.followed
                                     ? <button onClick={() => {
-                                        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
-                                                withCredentials: true,
-                                                headers: {
-                                                    'API-KEY': "4f5b3e29-825e-41fc-8dde-59e254917a07",
-                                                }
-                                            }
-                                        )
+                                            unfollowUser(u.id, TOKEN)
                                             .then(response => {
                                                 if (response.data['resultCode'] === 0) {
                                                     props.unfollow(u.id);
@@ -51,12 +47,7 @@ let Users = (props) => {
                                             });
                                     }}>Unfollow</button>
                                     : <button onClick={() => {
-                                        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
-                                            withCredentials: true,
-                                            headers: {
-                                                'API-KEY': "4f5b3e29-825e-41fc-8dde-59e254917a07"
-                                            }
-                                        })
+                                        followUser(u.id, TOKEN)
                                             .then(response => {
                                                 if (response.data['resultCode'] === 0) {
                                                     props.toFollow(u.id)

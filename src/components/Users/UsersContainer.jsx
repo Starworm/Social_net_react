@@ -2,13 +2,13 @@ import React from 'react';
 // старый импорт
 import {followAC, setCurrentPageAC, setTotalUsersCountAC, setUsersAC, toggleIsFetchingAC, unfollowAC} from "../../Redux/users-reducer";
 // новый импорт переименованных функций
-import {toFollow, setCurrentPage, setTotalUsersCount, setUsers, toggleIsFetching, unfollow
-} from "../../Redux/users-reducer";
+import {toFollow, setCurrentPage, setTotalUsersCount, setUsers, toggleIsFetching, unfollow} from "../../Redux/users-reducer";
 import Users_old from "./Users_old";
 import {connect} from 'react-redux';
 import * as axios from "axios";
 import Users from "./Users";
 import Preloader from "../common/Preloader/preloader";
+import {usersAPI} from "../../api/api";
 
 // классовый подход создания компоненты
 class UsersContainer extends React.Component {
@@ -16,28 +16,25 @@ class UsersContainer extends React.Component {
     componentDidMount() {
         if (this.props.users.length === 0) {
             this.props.toggleIsFetching(true);
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`,
-                {
-                    withCredentials: true
-                })
-                .then(responce => {
+            // выносим логику выполнения запроса в отдельный файл api.js - аналог сервиса в Angular
+            usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
+                .then(data => {
                     this.props.toggleIsFetching(false);
-                    this.props.setUsers(responce.data.items);
-                    this.props.setTotalUsersCount(responce.data.totalCount);
+                    this.props.setUsers(data.items);
+                    this.props.setTotalUsersCount(data.totalCount);
                 });
         }
     }
 
-    onPageChanged = (p) => {
-        this.props.setCurrentPage(p);
+    // изменение страницы
+    onPageChanged = (pageNumber) => {
+        this.props.setCurrentPage(pageNumber);
         this.props.toggleIsFetching(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`,
-            {
-                withCredentials: true
-            })
-            .then(responce => {
+        // выносим логику выполнения запроса в отдельный файл api.js - аналог сервиса в Angular
+        usersAPI.getUsers(pageNumber, this.props.pageSize)
+            .then(data => {
                 this.props.toggleIsFetching(false);
-                this.props.setUsers(responce.data.items);
+                this.props.setUsers(data.items);
             });
     }
 
