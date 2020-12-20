@@ -38,20 +38,24 @@ let Users = (props) => {
                             {/*подписка и отписка от пользователей должна быть также через запросы на сервер */}
                             <div>
                                 {u.followed
-                                    ? <button onClick={() => {
+                                    ? <button disabled={props.isFollowingInProgress.some(id => id === u.id)} onClick={() => {
+                                        props.toggleFollowingInProgress(true, u.id);
                                             unfollowUser(u.id, TOKEN)
                                             .then(response => {
                                                 if (response.data['resultCode'] === 0) {
                                                     props.unfollow(u.id);
                                                 }
+                                                props.toggleFollowingInProgress(false, u.id);
                                             });
                                     }}>Unfollow</button>
-                                    : <button onClick={() => {
+                                    : <button disabled={props.isFollowingInProgress.some(id => id === u.id)} onClick={() => {
+                                        props.toggleFollowingInProgress(true, u.id);
                                         followUser(u.id, TOKEN)
                                             .then(response => {
                                                 if (response.data['resultCode'] === 0) {
                                                     props.toFollow(u.id)
                                                 }
+                                                props.toggleFollowingInProgress(false, u.id);
                                             });
                                     }}>Follow</button>}
                             </div>

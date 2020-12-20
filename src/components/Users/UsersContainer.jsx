@@ -1,11 +1,15 @@
 import React from 'react';
-// старый импорт
-import {followAC, setCurrentPageAC, setTotalUsersCountAC, setUsersAC, toggleIsFetchingAC, unfollowAC} from "../../Redux/users-reducer";
 // новый импорт переименованных функций
-import {toFollow, setCurrentPage, setTotalUsersCount, setUsers, toggleIsFetching, unfollow} from "../../Redux/users-reducer";
-import Users_old from "./Users_old";
+import {
+    setCurrentPage,
+    setTotalUsersCount,
+    setUsers,
+    toFollow,
+    toggleFollowingInProgress,
+    toggleIsFetching,
+    unfollow
+} from "../../Redux/users-reducer";
 import {connect} from 'react-redux';
-import * as axios from "axios";
 import Users from "./Users";
 import Preloader from "../common/Preloader/preloader";
 import {usersAPI} from "../../api/api";
@@ -48,6 +52,8 @@ class UsersContainer extends React.Component {
                    users={this.props.users}
                    unfollow={this.props.unfollow}
                    toFollow={this.props.toFollow}
+                   toggleFollowingInProgress={this.props.toggleFollowingInProgress}
+                   isFollowingInProgress={this.props.isFollowingInProgress}
             />
         </>
     }
@@ -55,7 +61,7 @@ class UsersContainer extends React.Component {
 
 // объекты mapStateToProps и mapDispatchToProps - передаются в презентационную компоненту как пропсы
 // mapStateToProps - данные из state, которые будут отправляться в презентационную компоненту
-// mapDispatchToProps - колбэки, которые будут отправляться в презентационную компоненту
+// mapDispatchToProps - колбэки, которые будут отправляться в презентационную компоненту - теперь просто названия колбэков
 
 // mapStateToProps - данные из state (файл user-reducer), которые отправляются в презентационную компоненту
 let mapStateToProps = (state) => {
@@ -64,48 +70,15 @@ let mapStateToProps = (state) => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
+        isFollowingInProgress: state.usersPage.isFollowingInProgress,
     }
 }
-
-// mapDispatchToProps - колбэки, которые будут отправляться в презентационную компоненту для вызова уже там
-
-// let mapDispatchToProps = (dispatch) => {
-//     return {
-//         toFollow: (userId) => {
-//             const action = followAC(userId);
-//             dispatch(action);
-//         },
-//         unfollow: (userId) => {
-//             const action = unfollowAC(userId);
-//             dispatch(action);
-//         },
-//         setUsers: (users) => {
-//             const action = setUsersAC(users);
-//             dispatch(action);
-//         },
-//         setCurrentPage: (page) => {
-//             const action = setCurrentPageAC(page);
-//             dispatch(action);
-//         },
-//         setTotalUsersCount: (totalCount) => {
-//             const action = setTotalUsersCountAC(totalCount);
-//             dispatch(action)
-//         },
-//         toggleIsFetching: (isFetching) => {
-//             const action = toggleIsFetchingAC(isFetching);
-//             dispatch(action);
-//         }
-//
-//     }
-// }
-
-// export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
 
 // передача просто объекта - названий колбэков, упрощение кода выше
 export default connect(mapStateToProps,
     {
         toFollow, unfollow, setUsers,
-        setCurrentPage, setTotalUsersCount, toggleIsFetching
+        setCurrentPage, setTotalUsersCount, toggleIsFetching, toggleFollowingInProgress
     }
 )(UsersContainer);

@@ -4,6 +4,7 @@ const SET_USERS = 'SET_USERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const SET_TOTAL_COUNT = 'SET_TOTAL_COUNT';
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
+const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS';
 
 // исходный стейт
 let initialState = {
@@ -12,8 +13,10 @@ let initialState = {
     pageSize: 10,
     /** общее количество записей */
     totalUsersCount: 0,
-    /** получаем ли данные с бэка */
+    /** получаем ли данные с бэка (для отображения спиннера)*/
     isFetching: true,
+    /** осуществляется ли подписка/отписка в друзья (для блокировки кнопки) */
+    isFollowingInProgress: [],
     /** текущая страница */
     currentPage: 1,
 }
@@ -62,6 +65,13 @@ const userReducer = (state = initialState, action) => {
                 ...state,
                 isFetching: action.isFetching
             }
+        case TOGGLE_IS_FOLLOWING_PROGRESS:
+            return {
+                ...state,
+                isFollowingInProgress: action.isFetching
+                    ? [...state.isFollowingInProgress, action.userId]
+                    : state.isFollowingInProgress.filter(id => id !== action.userId)
+            }
         default:
             return state;
     }
@@ -74,5 +84,6 @@ export const setUsers = (users) => ({type: SET_USERS, users}); // добавле
 export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage}); // изменение странициы
 export const setTotalUsersCount = (totalUsersCount) => ({type: SET_TOTAL_COUNT, totalCount: totalUsersCount}); // установка общего количества пользователей
 export const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching}); // установка общего количества пользователей
+export const toggleFollowingInProgress = (isFetching, userId) => ({type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId}); // установка общего количества пользователей
 
 export default userReducer;
