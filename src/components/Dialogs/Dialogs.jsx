@@ -2,8 +2,15 @@ import DialogItem from './DialogItem/Dialog';
 import s from './Dialogs.module.css';
 import Message from './Message/Message';
 import React from 'react';
+import {Redirect} from "react-router-dom";
 
 const Dialogs = (props) => {
+    if(!props.isAuth) {
+        return (
+            // редирект на страницу логина со страницы сообщений если пользователь не залогинен
+            <Redirect to="/login" />
+        )
+    }
 
     let state = props.dialogsPage;
 

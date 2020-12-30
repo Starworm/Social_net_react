@@ -15,25 +15,26 @@ export const usersAPI = {
     getUsers(currentPage = 1, pageSize = 10) {
         return instanceAxios.get(`users?page=${currentPage}&count=${pageSize}`)
             .then(response => response.data);
-    }
-}
+    },
+    /** логин пользователя */
+    login() {
+        return instanceAxios.get(`auth/me`)
+    },
 
-/** логин пользователя */
-export const login = () => {
-    return instanceAxios.get(`auth/me`)
-}
+    /** получение профиля пользователя */
+    openUserProfile(userId) {
+        return instanceAxios.get(`profile/` + userId)
+    },
 
-/** получение профиля пользователя */
-export const openUserProfile = (userId) => {
-    return instanceAxios.get(`profile/` + userId)
-}
+    /** отписка от пользователя */
+    unfollowUser(id) {
+        return instanceAxios.delete(`follow/${id}`, {} )
+    },
 
-/** отписка от пользователя */
-export const unfollowUser = (id) => {
-    return instanceAxios.delete(`follow/${id}`, {} )
-}
+    /** подписка на пользователя */
+    followUser(id) {
+        return instanceAxios.post(`follow/${id}`, {}, )
+    },
+};
 
-/** подписка на пользователя */
-export const followUser = (id) => {
-    return instanceAxios.post(`follow/${id}`, {}, )
-}
+

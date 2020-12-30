@@ -44,14 +44,24 @@
 }
 
 .userStatus {
-font-size: 14px;
+    font-size: 14px;
     font-weight: 500;
+}
+
+.pages {
+    margin: 20px 0;
+}
+
+.page,
+.selectedPage {
+    border: 1px solid lightgray;
+    border-radius: 25%;
+    padding: 5px 10px;
+    margin: 0 3px;
+    cursor: pointer;
 }
 
 .selectedPage {
     font-weight: 700;
-}
-
-.cursorPointer {
-    cursor: pointer;
+    border: 2px solid black;
 }

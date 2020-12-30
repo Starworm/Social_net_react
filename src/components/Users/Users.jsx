@@ -6,20 +6,15 @@ let Users = (props) => {
     /** количество страниц с записями */
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
     let pages = [];
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i);
-    }
-
+    createPages(pages, pagesCount, props.currentPage);
     return (
         <div>
-            <div>
-                {pages.map(el => {
-                    return (
-                        <span
-                            className={styles.cursorPointer + ' ' + (props.currentPage === el && styles.selectedPage)}
-                            onClick={() => props.onPageChanged(el)}>{el}</span>
-                    )
-                })}
+            <div className={styles.pages}>
+                {pages.map((page, index) => <span
+                    key={index}
+                    className={props.currentPage === page ? styles.selectedPage : styles.page}
+                    onClick={() => props.onPageChanged(page)}>{page}</span>
+                )}
             </div>
             {props.users.map(u => {
                 return (
@@ -59,5 +54,30 @@ let Users = (props) => {
         </div>
     )
 };
+
+function createPages(pages, pagesCount, currentPage) {
+    if(pagesCount > 10) {
+        if (currentPage > 5) {
+            for (let i = currentPage-4; i<currentPage+5; i++) {
+                pages.push(i);
+                if (i == pagesCount) {
+                    break;
+                }
+            }
+        }
+        else {
+            for (let i = 1; i <= 10; i++) {
+                pages.push(i);
+                if (i == pagesCount) {
+                    break;
+                }
+            }
+        }
+    } else {
+        for (let i = 1; i <= pagesCount ; i++) {
+            pages.push(i);
+        }
+    }
+}
 
 export default Users;

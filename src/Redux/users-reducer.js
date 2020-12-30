@@ -1,5 +1,5 @@
 // типы экшенов для выполнения различных действий со стейтом
-import {followUser, unfollowUser, usersAPI} from "../api/api";
+import {usersAPI} from "../api/api";
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -114,7 +114,7 @@ export const doUnfollow = (userId) => {
     return (dispatch) => {
         // активация процесса fetch
         dispatch(toggleFollowingInProgress(true, userId));
-        unfollowUser(userId)
+        usersAPI.unfollowUser(userId)
             .then(response => {
                 if (response.data['resultCode'] === 0) {
                     dispatch(unfollow(userId));
@@ -131,7 +131,7 @@ export const doFollow = (userId) => {
     return (dispatch) => {
         // активация процесса fetch
         dispatch(toggleFollowingInProgress(true, userId));
-        followUser(userId)
+        usersAPI.followUser(userId)
             .then(response => {
                 if (response.data['resultCode'] === 0) {
                     dispatch(toFollow(userId));

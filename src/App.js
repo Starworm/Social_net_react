@@ -10,11 +10,10 @@ import DialogsContainer from './components/Dialogs/DialogsContainer';
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import LoginPage from "./components/Login/Login";
+import React from "react";
 
-let smth = () => <Dialogs/>
-
-const App = (props) => {
-    const text = 'IT-kamasutra.com ';
+const App = () => {
 
     return (
         <div className="app-wrapper">
@@ -23,11 +22,13 @@ const App = (props) => {
             <Navbar/>
             <div className='app-wrapper-content'>
                 <Route path='/dialogs'
-                       render={() => <DialogsContainer/>}/>
+                       render={() => <DialogsContainer />}/>
                 <Route path='/profile/:userId?'            // указываем параметр, который может быть в URL - userId, ? - необязательный параметр
-                       render={() => <ProfileContainer/>}/>
+                       render={() => <ProfileContainer />}/>
                 <Route path='/users'
-                       render={() => <UsersContainer/>}/>
+                       render={() => <UsersContainer />}/>
+                       <Route path='/login'
+                       render={() => <LoginPage />}/>
                 <Route path='/news' component={News}/>
                 <Route path='/music' component={Music}/>
                 <Route path='/settings' component={Settings}/>
