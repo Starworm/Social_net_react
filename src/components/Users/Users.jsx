@@ -1,14 +1,11 @@
 import styles from "./users.module.css";
 import React from "react";
 import {NavLink} from "react-router-dom";
-import * as axios from "axios";
-import {followUser, unfollowUser} from "../../api/api";
 
 let Users = (props) => {
     /** количество страниц с записями */
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
     let pages = [];
-    const TOKEN = "4f5b3e29-825e-41fc-8dde-59e254917a07";
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
     }
@@ -39,24 +36,10 @@ let Users = (props) => {
                             <div>
                                 {u.followed
                                     ? <button disabled={props.isFollowingInProgress.some(id => id === u.id)} onClick={() => {
-                                        props.toggleFollowingInProgress(true, u.id);
-                                            unfollowUser(u.id, TOKEN)
-                                            .then(response => {
-                                                if (response.data['resultCode'] === 0) {
-                                                    props.unfollow(u.id);
-                                                }
-                                                props.toggleFollowingInProgress(false, u.id);
-                                            });
+                                        props.unfollow(u.id);
                                     }}>Unfollow</button>
                                     : <button disabled={props.isFollowingInProgress.some(id => id === u.id)} onClick={() => {
-                                        props.toggleFollowingInProgress(true, u.id);
-                                        followUser(u.id, TOKEN)
-                                            .then(response => {
-                                                if (response.data['resultCode'] === 0) {
-                                                    props.toFollow(u.id)
-                                                }
-                                                props.toggleFollowingInProgress(false, u.id);
-                                            });
+                                        props.follow(u.id);
                                     }}>Follow</button>}
                             </div>
                         </div>
@@ -75,6 +58,6 @@ let Users = (props) => {
             })}
         </div>
     )
-}
+};
 
 export default Users;

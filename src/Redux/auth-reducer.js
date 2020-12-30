@@ -1,3 +1,5 @@
+import {login} from "../api/api";
+
 const SET_USER_DATA = 'SET_USER_DATA';  // установка пользовательских данных
 
 // исходный стейт
@@ -30,5 +32,19 @@ const authReducer = (state = initialState, action) => {
 
 // action creator для выполнения действий, возвращает action
 export const setAuthUserData = (userId, email, login) => ({type: SET_USER_DATA, data: {userId,  email, login}});     // установка авторизационных данных пользователя
+
+export const userLogin = () => {
+
+// thunk для логина пользователя
+    return (dispatch) => {
+        login()
+            .then(response => {
+                if (response.data['resultCode'] === 0) {
+                    let {id, email, login} = response.data.data;
+                    dispatch(setAuthUserData(id, email, login));
+                }
+            });
+    }
+};
 
 export default authReducer;

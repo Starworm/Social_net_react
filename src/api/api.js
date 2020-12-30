@@ -30,10 +30,7 @@ export const openUserProfile = (userId) => {
 
 /** отписка от пользователя */
 export const unfollowUser = (id) => {
-    return instanceAxios.delete(`follow/${id}`, {
-
-        }
-    )
+    return instanceAxios.delete(`follow/${id}`, {} )
 }
 
 /** подписка на пользователя */

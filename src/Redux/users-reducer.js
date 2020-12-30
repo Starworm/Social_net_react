@@ -1,3 +1,6 @@
+// типы экшенов для выполнения различных действий со стейтом
+import {followUser, unfollowUser, usersAPI} from "../api/api";
+
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
@@ -15,7 +18,7 @@ let initialState = {
     totalUsersCount: 0,
     /** получаем ли данные с бэка (для отображения спиннера)*/
     isFetching: true,
-    /** осуществляется ли подписка/отписка в друзья (для блокировки кнопки) */
+    /** массив, содержащий добавляемых или удаляемых пользователей в/из друзей (для блокировки кнопки Follow/Unfollow */
     isFollowingInProgress: [],
     /** текущая страница */
     currentPage: 1,
@@ -85,5 +88,58 @@ export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, current
 export const setTotalUsersCount = (totalUsersCount) => ({type: SET_TOTAL_COUNT, totalCount: totalUsersCount}); // установка общего количества пользователей
 export const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching}); // установка общего количества пользователей
 export const toggleFollowingInProgress = (isFetching, userId) => ({type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId}); // установка общего количества пользователей
+
+// thunk для получения пользователей
+export const getUsers = (currentPage, pageSize) => {
+
+    return (dispatch) => {
+        // активация процесса fetch
+        dispatch(toggleIsFetching(true));
+
+        dispatch(setCurrentPage(currentPage));
+        // выносим логику выполнения запроса в отдельный файл api.js - аналог сервиса в Angular
+        usersAPI.getUsers(currentPage, pageSize)
+            .then(data => {
+                dispatch(toggleIsFetching(false));
+                dispatch(setUsers(data.items));
+                dispatch(setTotalUsersCount(data.totalCount));
+            });
+    }
+
+};
+
+// thunk для отписки на пользователя
+export const doUnfollow = (userId) => {
+
+    return (dispatch) => {
+        // активация процесса fetch
+        dispatch(toggleFollowingInProgress(true, userId));
+        unfollowUser(userId)
+            .then(response => {
+                if (response.data['resultCode'] === 0) {
+                    dispatch(unfollow(userId));
+                }
+                dispatch(toggleFollowingInProgress(false, userId));
+            });
+    }
+
+};
+
+// thunk для подписки на пользователя
+export const doFollow = (userId) => {
+
+    return (dispatch) => {
+        // активация процесса fetch
+        dispatch(toggleFollowingInProgress(true, userId));
+        followUser(userId)
+            .then(response => {
+                if (response.data['resultCode'] === 0) {
+                    dispatch(toFollow(userId));
+                }
+                dispatch(toggleFollowingInProgress(false, userId));
+            });
+    }
+
+};
 
 export default userReducer;

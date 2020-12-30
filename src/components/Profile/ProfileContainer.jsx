@@ -1,12 +1,8 @@
-import MyPostsContainer from './MyPosts/MyPostsContainer';
-import ProfileInfo from './ProfileInfo/ProfileInfo';
 import Profile from "./Profile";
 import React from "react";
-import * as axios from "axios";
-import {setUserProfile} from "../../Redux/profile-reducer";
+import {setUserProfile, toOpenUserProfile} from "../../Redux/profile-reducer";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
-import {openUserProfile} from "../../api/api";
 
 // класс получения данных других пользователей
 class ProfileContainer extends React.Component {
@@ -14,12 +10,9 @@ class ProfileContainer extends React.Component {
     componentDidMount() {
         let userId = this.props.match.params.userId;
         if (!userId) {
-            userId = 2;
+            userId = 18;
         }
-        openUserProfile(userId)
-            .then(response => {
-                this.props.setUserProfile(response.data);
-            });
+        this.props.toOpenUserProfile();
     }
 
     render() {
@@ -42,5 +35,5 @@ let mapStateToProps = (state) => {
 let WithUrlDataContainerComponent = withRouter(ProfileContainer);
 
 export default connect(mapStateToProps, {
-    setUserProfile,
+    setUserProfile, toOpenUserProfile,
 })(WithUrlDataContainerComponent);
