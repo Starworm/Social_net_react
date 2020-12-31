@@ -2,8 +2,9 @@ import React from 'react';
 import { addMessageActionCreator, updateNewMessageActionCreator } from '../../Redux/dialogs-reducer';
 import Dialogs from './Dialogs';
 import { connect } from 'react-redux';
+import {withAuthRedirect} from "../hoc/withAuthRedirect";
 
-// контейнерная компонента вручную
+// контейнерная компонента вручную, оставлена на память
 
 // const DialogsContainer = () => {
 
@@ -39,7 +40,6 @@ import { connect } from 'react-redux';
 let mapStateToProps = (state) => {
     return {
         dialogsPage: state.dialogsPage,
-        isAuth: state.auth.isAuth
     }
 }
 
@@ -53,8 +53,11 @@ let mapDispatchToProps = (dispatch) => {
             dispatch(addMessageActionCreator());
         }
     }
-}
+};
+// вызов hoc редиректа для переброски пользователя на целевую страницу либо страницу логина
+let AuthRedirectComponent = withAuthRedirect(Dialogs);
+
 // контейнерная компонента с помощью react-redux
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
+const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);
 
 export default DialogsContainer; 

@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import Friend from './Friend';
 import s from './Navbar.module.css';
+import React from "react";
 
 const Navbar = (props) => {
 
@@ -12,24 +13,24 @@ const Navbar = (props) => {
     return (
         <nav className={s.nav}>
             <div className={s['chapt-group']}>
-                <div className={s.linkback}>
-                    <NavLink to="/profile" activeClassName={s.activeLink}>Profile</NavLink>
-                </div>
-                <div className={s.linkback}>
-                    <NavLink to="/dialogs" activeClassName={s.activeLink}>Messages</NavLink>
-                </div>
-                <div className={s.linkback}>
-                    <NavLink to="/users" activeClassName={s.activeLink}>Users</NavLink>
-                </div>
-                <div className={s.linkback}>
-                    <NavLink to="/news" activeClassName={s.activeLink}>News</NavLink>
-                </div>
-                <div className={s.linkback}>
-                    <NavLink to="/music" activeClassName={s.activeLink}>Music</NavLink>
-                </div>
-                <div className={s.linkback}>
-                    <NavLink to="/settings" activeClassName={s.activeLink}>Settings</NavLink>
-                </div>
+                <NavLink to="/profile" activeClassName={s.activeLink} className={s.linkback}>
+                    Profile
+                </NavLink>
+                <NavLink to="/dialogs" activeClassName={s.activeLink} className={s.linkback}>
+                    Messages
+                </NavLink>
+                <NavLink to="/users" activeClassName={s.activeLink} className={s.linkback}>
+                    Users
+                </NavLink>
+                <NavLink to="/news" activeClassName={s.activeLink} className={s.linkback}>
+                    News
+                </NavLink>
+                <NavLink to="/music" activeClassName={s.activeLink} className={s.linkback}>
+                    Music
+                </NavLink>
+                <NavLink to="/settings" activeClassName={s.activeLink} className={s.linkback}>
+                    Settings
+                </NavLink>
             </div>
             <div>
                 <div className={s.nav__titleBlock}>

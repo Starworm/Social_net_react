@@ -3,10 +3,9 @@ import { connect } from 'react-redux';
 import { addPostActionCreator, updateNewPostTextActionCreator } from '../../../Redux/profile-reducer';
 import MyPosts from './MyPosts';
 
+// контейнерная компонента вручную, оставлена на память
 // const MyPostsContainer = () => {
-
 //     // let state = props.store.getState();
-
 //     return (
 //         <StoreContext.Consumer>
 //             {

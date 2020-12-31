@@ -4,6 +4,7 @@ import {getUserProfile} from "../../Redux/profile-reducer";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import {Redirect} from "react-router-dom";
+import {withAuthRedirect} from "../hoc/withAuthRedirect";
 
 // класс получения данных других пользователей
 class ProfileContainer extends React.Component {
@@ -17,12 +18,7 @@ class ProfileContainer extends React.Component {
     }
 
     render() {
-        // редирект на страницу логина со страницы профиля если пользователь не залогинен
-        if (!this.props.isAuth) {
-            return (
-                <Redirect to="/login" />
-            )
-        }
+
         return (
             <div>
                 <Profile {...this.props} profile={this.props.profile}/>
@@ -31,17 +27,16 @@ class ProfileContainer extends React.Component {
     }
 }
 
+let AuthRedirectComponent = withAuthRedirect(ProfileContainer);
+
 let mapStateToProps = (state) => {
     return {
         profile: state.profilePage.profile,
-        isAuth: state.auth.isAuth
     }
 };
 
 // дополнительная обертка презентационной компоненты специальной
 // "роутинговой" для получения параметров адресной строки
-let WithUrlDataContainerComponent = withRouter(ProfileContainer);
+let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent);
 
-export default connect(mapStateToProps, {
-    getUserProfile,
-})(WithUrlDataContainerComponent);
+export default connect(mapStateToProps, {getUserProfile})(WithUrlDataContainerComponent);
