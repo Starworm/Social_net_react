@@ -22,8 +22,9 @@ export const usersAPI = {
     },
 
     /** получение профиля пользователя */
-    openUserProfile(userId) {
-        return instanceAxios.get(`profile/` + userId)
+    getProfile(userId) {
+        console.warn('Obsolete method. Please use profileAPI object');
+        return profileAPI.getProfile(userId);
     },
 
     /** отписка от пользователя */
@@ -37,4 +38,16 @@ export const usersAPI = {
     },
 };
 
+export const profileAPI = {
+    /** получение профиля пользователя */
+    getProfile(userId) {
+        return instanceAxios.get(`profile/` + userId);
+    },
 
+    getStatus(userId) {
+        return instanceAxios.get(`profile/status/` + userId);
+    },
+    updateStatus(status) {
+        return instanceAxios.put(`profile/status/`, { status: status });
+    }
+};

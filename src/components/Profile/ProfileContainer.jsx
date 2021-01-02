@@ -1,9 +1,8 @@
 import Profile from "./Profile";
 import React from "react";
-import {getUserProfile} from "../../Redux/profile-reducer";
+import {getStatus, getUserProfile, updateStatus} from "../../Redux/profile-reducer";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
-import {Redirect} from "react-router-dom";
 import {withAuthRedirect} from "../hoc/withAuthRedirect";
 import {compose} from "redux";
 
@@ -13,16 +12,21 @@ class ProfileContainer extends React.Component {
     componentDidMount() {
         let userId = this.props.match.params.userId;
         if (!userId) {
-            userId = 1044;
+            userId = 13361;
         }
         this.props.getUserProfile(userId);
+        this.props.getStatus(userId);
     }
 
     render() {
 
         return (
             <div>
-                <Profile {...this.props} profile={this.props.profile}/>
+                <Profile
+                    {...this.props}
+                    profile={this.props.profile}
+                    status={this.props.status}
+                    updateStatus={this.props.updateStatus}/>
             </div>
         );
     }
@@ -31,14 +35,15 @@ class ProfileContainer extends React.Component {
 let mapStateToProps = (state) => {
     return {
         profile: state.profilePage.profile,
+        status: state.profilePage.status
     }
 };
 
 // конвейерная обработка компонента для уменьшения количества кода.
 // Целевой компонент пишется во вторых скобках, применяемые на нем hoc'и пишутся снизу вверх
 export default compose(
-    connect(mapStateToProps, {getUserProfile}),
+    connect(mapStateToProps, {getUserProfile, getStatus, updateStatus}),
     withRouter,
-    withAuthRedirect
+    // withAuthRedirect
 )
 (ProfileContainer);
