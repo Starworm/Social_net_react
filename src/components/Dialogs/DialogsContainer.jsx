@@ -3,6 +3,7 @@ import { addMessageActionCreator, updateNewMessageActionCreator } from '../../Re
 import Dialogs from './Dialogs';
 import { connect } from 'react-redux';
 import {withAuthRedirect} from "../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 // контейнерная компонента вручную, оставлена на память
 
@@ -54,10 +55,11 @@ let mapDispatchToProps = (dispatch) => {
         }
     }
 };
-// вызов hoc редиректа для переброски пользователя на целевую страницу либо страницу логина
-let AuthRedirectComponent = withAuthRedirect(Dialogs);
 
-// контейнерная компонента с помощью react-redux
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);
-
-export default DialogsContainer; 
+// compose - конвейерная обработка компонента для уменьшения количества кода
+// и лучшей читаемости последовательности обработки.
+// Целевой компонент пишется во вторых скобках, применяемые на нем hoc'и пишутся снизу вверх
+export default compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    withAuthRedirect,
+)(Dialogs);

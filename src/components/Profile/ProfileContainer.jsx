@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import {Redirect} from "react-router-dom";
 import {withAuthRedirect} from "../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 // класс получения данных других пользователей
 class ProfileContainer extends React.Component {
@@ -27,16 +28,17 @@ class ProfileContainer extends React.Component {
     }
 }
 
-let AuthRedirectComponent = withAuthRedirect(ProfileContainer);
-
 let mapStateToProps = (state) => {
     return {
         profile: state.profilePage.profile,
     }
 };
 
-// дополнительная обертка презентационной компоненты специальной
-// "роутинговой" для получения параметров адресной строки
-let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent);
-
-export default connect(mapStateToProps, {getUserProfile})(WithUrlDataContainerComponent);
+// конвейерная обработка компонента для уменьшения количества кода.
+// Целевой компонент пишется во вторых скобках, применяемые на нем hoc'и пишутся снизу вверх
+export default compose(
+    connect(mapStateToProps, {getUserProfile}),
+    withRouter,
+    withAuthRedirect
+)
+(ProfileContainer);

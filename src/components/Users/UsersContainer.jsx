@@ -12,6 +12,8 @@ import {
 import {connect} from 'react-redux';
 import Users from "./Users";
 import Preloader from "../common/Preloader/preloader";
+import {withAuthRedirect} from "../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 // классовый подход создания компоненты
 class UsersContainer extends React.Component {
@@ -60,10 +62,13 @@ let mapStateToProps = (state) => {
     }
 }
 
-// передача просто объекта - названий колбэков, упрощение кода выше
-export default connect(mapStateToProps,
-    {
-        toFollow, unfollow, setCurrentPage,
-        toggleFollowingInProgress, getUsers, doUnfollow, doFollow
-    }
+// конвейерная обработка компонента для уменьшения количества кода.
+// Целевой компонент пишется во вторых скобках, применяемые на нем hoc'и пишутся снизу вверх
+export default compose(
+    withAuthRedirect,
+    connect(mapStateToProps,
+        {
+            toFollow, unfollow, setCurrentPage,
+            toggleFollowingInProgress, getUsers, doUnfollow, doFollow
+        })
 )(UsersContainer);
