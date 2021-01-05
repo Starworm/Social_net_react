@@ -31,6 +31,15 @@ class ProfileStatus extends React.Component {
         });
     }
 
+    // сравниваем предыдущее и текущее состояние статуса и обновляем его только если пришло новое
+    componentDidUpdate(prevProps, prevState) {
+        if(prevProps.status !== this.props.status) {
+            this.setState({
+                status: this.props.status
+            })
+        }
+    }
+
     render() {
         return (
             <div>
@@ -51,6 +60,5 @@ class ProfileStatus extends React.Component {
         )
     }
 }
-;
 
 export default ProfileStatus;
