@@ -22,8 +22,7 @@ const authReducer = (state = initialState, action) => {
         case SET_USER_DATA:
             return {
                 ...state,
-                ...action.data,   // склеенные данные из userId, email и login
-                isAuth: true
+                ...action.payload,   // склеенные данные из userId, email и login
             };
         default:
             return state;
@@ -31,33 +30,39 @@ const authReducer = (state = initialState, action) => {
 };
 
 // action creator для выполнения действий, возвращает action
-export const setAuthUserData = (userId, email, login) => ({type: SET_USER_DATA, data: {userId,  email, login}});     // установка авторизационных данных пользователя
+export const setAuthUserData = (userId, email, login, isAuth) => ({type: SET_USER_DATA, payload: {userId, email, login, isAuth}});     // установка авторизационных данных пользователя
 
-// thunk для логина пользователя
-export const userLogin = () => {
+// thunk для подтверждения о залогине пользователя
+export const getAuthUserData = () => {
     return (dispatch) => {
         usersAPI.login()
             .then(response => {
                 if (response.data['resultCode'] === 0) {
                     let {id, email, login} = response.data.data;
-                    dispatch(setAuthUserData(id, email, login));
+                    dispatch(setAuthUserData(id, email, login, true));
                 }
             });
     }
 };
 
 // thunk для логина пользователя в приложении
-// export const userLogin = (login, password, isRemember) => {
-//
-//     return (dispatch) => {
-//         usersAPI.userLogin(login, password, isRemember)
-//             .then(response => {
-//                 if (response.data['resultCode'] === 0) {
-//                     let {id, email, login} = response.data.data;
-//                     dispatch(setAuthUserData(id, email, login));
-//                 }
-//             });
-//     }
-// };
+export const userLogin = (login, password, isRemember = false) => (dispatch) => {
+    usersAPI.userLogin(login, password, isRemember)
+        .then(response => {
+            if (response.data['resultCode'] === 0) {
+                dispatch(getAuthUserData());
+            }
+        });
+};
+
+// thunk для логаута пользователя из приложении
+export const logout = () => (dispatch) => {
+    usersAPI.userLogout()
+        .then(response => {
+            if (response.data['resultCode'] === 0) {
+                dispatch(setAuthUserData(null, null, null, false));
+            }
+        });
+};
 
 export default authReducer;

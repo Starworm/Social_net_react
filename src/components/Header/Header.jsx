@@ -10,7 +10,10 @@ const Header = (props) => {
                 src="https://img2.freepng.ru/20180315/vrq/kisspng-logo-lion-shutterstock-red-gradient-lionhead-5aab05d93512d0.9761940315211575932174.jpg"/>
             <div className={s.loginBlock}>
                 {props.isAuth
-                    ? props.login
+                    ? <div>
+                        {props.login}
+                        <button onClick={props.logout}>Logout</button>
+                    </div>
                     : <NavLink to={'/login'}>login</NavLink>}
             </div>
         </header>

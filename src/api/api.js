@@ -17,19 +17,24 @@ export const usersAPI = {
             .then(response => response.data);
     },
 
-    /** логин пользователя */
+    /** получение подтверждения о залогине пользователя */
     login() {
         return instanceAxios.get(`auth/me`)
     },
 
     /** логин пользователя в приложении */
-    userLogin(login, password, isRemember) {
+    userLogin(login, password, isRemember=false) {
         let body = {
             email: login,
             password,
             rememberMe: isRemember
         };
-        return instanceAxios.post(`auth/login`, body)
+        return instanceAxios.post(`auth/login`, body);
+    },
+
+    /** логаут пользователя из приложении */
+    userLogout() {
+        return instanceAxios.delete(`auth/login`);
     },
 
     /** получение профиля пользователя */
