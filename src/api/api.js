@@ -16,9 +16,20 @@ export const usersAPI = {
         return instanceAxios.get(`users?page=${currentPage}&count=${pageSize}`)
             .then(response => response.data);
     },
+
     /** логин пользователя */
     login() {
         return instanceAxios.get(`auth/me`)
+    },
+
+    /** логин пользователя в приложении */
+    userLogin(login, password, isRemember) {
+        let body = {
+            email: login,
+            password,
+            rememberMe: isRemember
+        };
+        return instanceAxios.post(`auth/login`, body)
     },
 
     /** получение профиля пользователя */
