@@ -1,8 +1,9 @@
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
 import React from 'react';
-import {addPostActionCreator, updateNewPostTextActionCreator} from '../../../Redux/profile-reducer';
 import {Field, reduxForm} from "redux-form";
+import {maxLengthCreator, required} from "../../../utils/validators/validators";
+import {Textarea} from "../../common/FormsControls/FormsControls";
 
 const MyPosts = (props) => {
     let postsElements = props.posts.map((el) => {
@@ -34,11 +35,16 @@ const MyPosts = (props) => {
     );
 };
 
+// валидация поля поста на максимальную длину в 10 символов
+const maxLength10 = maxLengthCreator(10);
+
 const AddPostForm = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field component={'textarea'}
+                <Field component={Textarea}
+                       placeholder={"Post message"}
+                       validate={[required, maxLength10]}
                        name={"newPostElement"}
                        cols="30" rows="5">
                 </Field>

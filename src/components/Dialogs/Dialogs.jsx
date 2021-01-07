@@ -3,6 +3,8 @@ import s from './Dialogs.module.css';
 import Message from './Message/Message';
 import React from 'react';
 import {Field, reduxForm} from "redux-form";
+import {Textarea} from "../common/FormsControls/FormsControls";
+import {maxLengthCreator, required} from "../../utils/validators/validators";
 
 const Dialogs = (props) => {
 
@@ -35,6 +37,9 @@ const Dialogs = (props) => {
     );
 }
 
+// валидация поля сообщения на максимальную длину в 10 символов
+const maxLength10 = maxLengthCreator(10);
+
 const AddMessageForm = (props) => {
 
     return (
@@ -43,8 +48,8 @@ const AddMessageForm = (props) => {
                 <Field
                     placeholder="Enter your message"
                     name={"newMessageBody"}
-                    component={'textarea'}
-                    value={props.newMessage}
+                    component={Textarea}
+                    validate={[required, maxLength10]}
                     cols="30" rows="5">
                 </Field>
             </div>
