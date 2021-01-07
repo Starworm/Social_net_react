@@ -34,23 +34,9 @@ const authReducer = (state = initialState, action) => {
 export const setAuthUserData = (userId, email, login) => ({type: SET_USER_DATA, data: {userId,  email, login}});     // установка авторизационных данных пользователя
 
 // thunk для логина пользователя
-// export const userLogin = () => {
-//     return (dispatch) => {
-//         usersAPI.login()
-//             .then(response => {
-//                 if (response.data['resultCode'] === 0) {
-//                     let {id, email, login} = response.data.data;
-//                     dispatch(setAuthUserData(id, email, login));
-//                 }
-//             });
-//     }
-// };
-
-// thunk для логина пользователя в приложении
-export const userLogin = (login, password, isRemember) => {
-
+export const userLogin = () => {
     return (dispatch) => {
-        usersAPI.userLogin(login, password, isRemember)
+        usersAPI.login()
             .then(response => {
                 if (response.data['resultCode'] === 0) {
                     let {id, email, login} = response.data.data;
@@ -59,5 +45,19 @@ export const userLogin = (login, password, isRemember) => {
             });
     }
 };
+
+// thunk для логина пользователя в приложении
+// export const userLogin = (login, password, isRemember) => {
+//
+//     return (dispatch) => {
+//         usersAPI.userLogin(login, password, isRemember)
+//             .then(response => {
+//                 if (response.data['resultCode'] === 0) {
+//                     let {id, email, login} = response.data.data;
+//                     dispatch(setAuthUserData(id, email, login));
+//                 }
+//             });
+//     }
+// };
 
 export default authReducer;
