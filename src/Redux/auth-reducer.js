@@ -31,19 +31,20 @@ const authReducer = (state = initialState, action) => {
 };
 
 // action creator для выполнения действий, возвращает action
-export const setAuthUserData = (userId, email, login, isAuth) => ({type: SET_USER_DATA, payload: {userId, email, login, isAuth}});     // установка авторизационных данных пользователя
+export const setAuthUserData = (userId, email, login, isAuth) => ({
+    type: SET_USER_DATA,
+    payload: {userId, email, login, isAuth}
+});     // установка авторизационных данных пользователя
 
 // thunk для подтверждения о залогине пользователя
-export const getAuthUserData = () => {
-    return (dispatch) => {
-        usersAPI.login()
-            .then(response => {
-                if (response.data['resultCode'] === 0) {
-                    let {id, email, login} = response.data.data;
-                    dispatch(setAuthUserData(id, email, login, true));
-                }
-            });
-    }
+export const getAuthUserData = () => (dispatch) => {
+    return usersAPI.login()
+        .then(response => {
+            if (response.data['resultCode'] === 0) {
+                let {id, email, login} = response.data.data;
+                dispatch(setAuthUserData(id, email, login, true));
+            }
+        });
 };
 
 // thunk для логина пользователя в приложении
