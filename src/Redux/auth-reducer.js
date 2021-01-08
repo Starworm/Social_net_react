@@ -1,4 +1,5 @@
 import {usersAPI} from "../api/api";
+import {stopSubmit} from "redux-form";
 
 const SET_USER_DATA = 'SET_USER_DATA';  // установка пользовательских данных
 
@@ -46,11 +47,15 @@ export const getAuthUserData = () => {
 };
 
 // thunk для логина пользователя в приложении
-export const userLogin = (login, password, isRemember = false) => (dispatch) => {
+export const userLogin = (login, password, isRemember) => (dispatch) => {
     usersAPI.userLogin(login, password, isRemember)
         .then(response => {
             if (response.data['resultCode'] === 0) {
                 dispatch(getAuthUserData());
+            } else {
+                let messages = response.data.messages.length > 0 ? response.data.messages[0] : "Smth wrng...";
+                // прекращение сабмита формы в случае ошибки
+                dispatch(stopSubmit("login", {_error: messages}));
             }
         });
 };
