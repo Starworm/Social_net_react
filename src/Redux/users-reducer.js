@@ -96,6 +96,7 @@ export const getUsers = (currentPage, pageSize) => {
         // активация процесса fetch
         dispatch(toggleIsFetching(true));
 
+        // установка страницы активной
         dispatch(setCurrentPage(currentPage));
         // выносим логику выполнения запроса в отдельный файл api.js - аналог сервиса в Angular
         usersAPI.getUsers(currentPage, pageSize)

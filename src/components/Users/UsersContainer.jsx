@@ -13,6 +13,14 @@ import {connect} from 'react-redux';
 import Users from "./Users";
 import Preloader from "../common/Preloader/preloader";
 import {compose} from "redux";
+import {
+    getAllUsers,
+    getCurrentPage,
+    getIsFetching,
+    getIsFollowingInProgress,
+    getPageSize,
+    getTotalUsersCount
+} from "../../Redux/users-selectors";
 
 // классовый подход создания компоненты
 class UsersContainer extends React.Component {
@@ -50,14 +58,26 @@ class UsersContainer extends React.Component {
 // mapDispatchToProps - колбэки, которые будут отправляться в презентационную компоненту - теперь просто названия колбэков
 
 // mapStateToProps - данные из state (файл user-reducer), которые отправляются в презентационную компоненту
+// let mapStateToProps = (state) => {
+//     return {
+//         users: state.usersPage.users,
+//         pageSize: state.usersPage.pageSize,
+//         totalUsersCount: state.usersPage.totalUsersCount,
+//         currentPage: state.usersPage.currentPage,
+//         isFetching: state.usersPage.isFetching,
+//         isFollowingInProgress: state.usersPage.isFollowingInProgress,
+//     }
+// }
+
+// использование селектора для получения данных
 let mapStateToProps = (state) => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        isFollowingInProgress: state.usersPage.isFollowingInProgress,
+        users: getAllUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        isFollowingInProgress: getIsFollowingInProgress(state),
     }
 }
 
