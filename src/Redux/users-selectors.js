@@ -1,12 +1,29 @@
 // селекторы для получения данных из редьюсеров
 
+import {createSelector} from "reselect";
+
 /**
- * Селектор для получения всех пользователей
+ * Селектор для получения всех пользователей. Каждый раз создает новый массив пользователей (искусственный случай)
  * @param state
  */
 export const getAllUsers = (state) => {
+    return state.usersPage.users.filter(u => true);
+};
+
+/**
+ * Примитивный селектор для получения пользователей
+ * @param state
+ */
+export const getUsers = (state) => {
     return state.usersPage.users;
 };
+
+// селектор библиотеки reselect
+// селектор, который проверяет состояние и возвращает результат только если что-то меняется в селекторе,
+// от которого он зависит - в данном случае getUsers
+export const getAllUsersReselector = createSelector(getUsers,(users) => {
+    return users.filter(u => true);
+});
 
 /**
  * Селектор для получения количества записей на странице

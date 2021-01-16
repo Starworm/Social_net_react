@@ -14,7 +14,7 @@ import Users from "./Users";
 import Preloader from "../common/Preloader/preloader";
 import {compose} from "redux";
 import {
-    getAllUsers,
+    getAllUsers, getAllUsersReselector,
     getCurrentPage,
     getIsFetching,
     getIsFollowingInProgress,
@@ -72,7 +72,9 @@ class UsersContainer extends React.Component {
 // использование селектора для получения данных
 let mapStateToProps = (state) => {
     return {
-        users: getAllUsers(state),
+        // users: getAllUsers(state),
+        // используем вместо обычного селектора библиотеку reselect
+        users: getAllUsersReselector(state),
         pageSize: getPageSize(state),
         totalUsersCount: getTotalUsersCount(state),
         currentPage: getCurrentPage(state),
